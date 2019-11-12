@@ -14,30 +14,25 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 #s.connect(("121.0.0.10", 12345))
 s.connect(("192.168.68.26", 12345))
 full_msg = '' #received message
-#message = ""
-#message = input('-->') #message that we will be sending
-
-#adding all the received data to a text file
 f = open("server_data.txt", "w")
-count = 1
-while count == 1:
+
+stop_word = "quit"
+stop_word = stop_word + '\r\n' #adding '\r\n' to account for the .decode part of the str
+
+while True:
+   
     msg = s.recv(1024)
-#    if len(msg) <= 0:
-#        break
     full_msg = msg.decode('utf-8')
-    f.write(full_msg + '\n')
+    
+    if full_msg == stop_word: #if the server gives us the command quit
+        break
+    
+    f.write(full_msg)
     #s.send(b_com)
     print("Server: " + full_msg)
-    if full_msg == "quit":
-        count = 0
-#    message = input('-->')
-#    
-#    if message == "quit":
-#        break
-#    if len(message) <= 0:
-#        continue
-#     s.send(message.encode('utf-8'))
     s.send(full_msg.encode('utf-8'))
+
+
 f.close()
 s.close()
 
