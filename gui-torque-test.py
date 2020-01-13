@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 """
+Created on Thu Jan  9 11:09:55 2020
+
+@author: AMZ
+"""
+
+# -*- coding: utf-8 -*-
+"""
 Created on Thu Jan  9 08:39:28 2020
 
 @author: AMZ
@@ -55,14 +62,26 @@ entry3.pack()
 button1 = Button(text="Quit",command = partial(close_window, s), fg="red")
 button1.pack()
 
-im = Image.open("smiley.jpg")
-im = im.resize((250, 250), Image.ANTIALIAS)
-smiley_img = ImageTk.PhotoImage(im)
+
+###### Adding 3 side by side Images#####################
+im = Image.open("minion.jpg")
+im = im.resize((450, 450), Image.ANTIALIAS)
+img = ImageTk.PhotoImage(im)
+img_lbl = Label(root, image=img)
+img_lbl.pack(side=LEFT)
 
 
 
-smiley_lbl = Label(root, image=smiley_img)
-smiley_lbl.pack(side = "bottom", fill = "both", expand="yes")
-#clientSocket, address = s.accept()
+im2 = Image.open("panda.jpg")
+im2 = im2.resize((450, 450), Image.ANTIALIAS)
+img2 = ImageTk.PhotoImage(im2)
+img2_lbl = Label(root, image=img2)
+img2_lbl.pack(side=LEFT)
+
+im3 = Image.open("pic.jpg")
+im3 = im3.resize((450, 450), Image.ANTIALIAS)
+img3 = ImageTk.PhotoImage(im3)
+img3_lbl = Label(root, image=img3)
+img3_lbl.pack(side=LEFT)
 
 root.mainloop()
