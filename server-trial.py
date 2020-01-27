@@ -87,6 +87,49 @@ def socket_connection():
     if full_msg != '0':
         f = open("Yazaki.txt", "a")
         full_msg = full_msg.replace('\r\n', '')
+        
+        if full_msg != "":
+            print("this is full msg: " + full_msg)
+            print("this is the first letter: " + full_msg[0])
+            
+####################### Changing the images, Part numbers, and states as needed ##################################           
+            
+            if (full_msg[0] == 'A'):
+                print(full_msg[1:3])
+                if(full_msg[1:3] == "PN"):
+                    pn1_sv.set(full_msg[3:8])
+                    im_a = Image.open("earth.jpg")
+                    im_a = im_a.resize((450, 400))
+                    img_a = ImageTk.PhotoImage(im_a)
+                    img_lbl.configure(image=img_a)
+                    img_lbl.image = img_a
+                    pn1_cb_sv.set('Checked')
+                    l.config(bg="green")
+                    
+            if (full_msg[0] == 'B'):
+                print(full_msg[1:3])
+                if(full_msg[1:3] == "PN"):
+                    pn2_sv.set(full_msg[3:8])
+                    im_a = Image.open("eagle.jpg")
+                    im_a = im_a.resize((450, 400))
+                    img_a = ImageTk.PhotoImage(im_a)
+                    img2_lbl.configure(image=img_a)
+                    img2_lbl.image = img_a
+                    pn2_cb_sv.set('Checked')
+                    m.config(bg="green")
+            
+            if (full_msg[0] == 'C'):
+                print(full_msg[1:3])
+                if(full_msg[1:3] == "PN"):
+                    pn3_sv.set(full_msg[3:8])
+                    im_a = Image.open("uom.jpg")
+                    im_a = im_a.resize((450, 400))
+                    img_a = ImageTk.PhotoImage(im_a)
+                    img3_lbl.configure(image=img_a)
+                    img3_lbl.image = img_a
+                    pn3_cb_sv.set('Checked')
+                    r.config(bg = "green")
+                    
         msg_string_var.set(full_msg)
         f.write(full_msg)
         
@@ -122,6 +165,7 @@ dim = str(screen_width)+'x'+str(screen_height)
 root.geometry(dim)
 address = (0, 0)
 ip = address[0]
+
 port = address[1]
 
 print(ip, type(ip)) #ip type --> string
@@ -135,23 +179,29 @@ port_string_var.set(port)
 msg_string_var = StringVar()
 msg_string_var.set('Hello')
 connected_sv = StringVar()
+
+frame4 = Frame(root, relief = RAISED, borderwidth = 2)
+frame4.pack(fill = X)
 connected_sv.set("Not Connected")
-YNA = Label(root, text="Yazaki North America", bg="red", fg="white")
+YNA = Label(frame4, text="Yazaki North America", bg="red", fg="white")
 YNA.pack(fill=X)
-button2 = Button(textvariable=connected_sv, fg="white", bg = "red")
+button2 = Button(frame4, textvariable=connected_sv, fg="white", bg = "red")
 button2.pack()
-ip = Label(root, text="IP Address")
-ip.pack()
-entry1 = Entry(root, textvariable = ip_string_var)
-entry1.pack()
-port = Label(root, text="Port Number")
-entry2 = Entry(root, textvariable = port_string_var)
-port.pack()
-entry2.pack()
-message = Label(root, text = "Message")
-message.pack()
-entry3 = Entry(root, textvariable = msg_string_var)
-entry3.pack()
+
+frame5 = Frame(root, relief = RAISED, borderwidth = 2)
+frame5.pack(fill= X)
+ip = Label(frame5, text="IP Address")
+ip.pack(side=LEFT, padx = 0)
+entry1 = Entry(frame5, textvariable = ip_string_var)
+entry1.pack(side=LEFT, padx = 0)
+port = Label(frame5, text="Port Number")
+entry2 = Entry(frame5, textvariable = port_string_var)
+port.pack(side = LEFT, padx = (250, 0)) #We enter a tuple for padx to pad only on one side (left, right)
+entry2.pack(side=LEFT)
+message = Label(frame5, text = "Message")
+message.pack(side=LEFT, padx = (250, 0))
+entry3 = Entry(frame5, textvariable = msg_string_var)
+entry3.pack(side=LEFT)
 
 button1 = Button(text="Quit",command = partial(close_window, s), fg="red")
 button1.pack()
@@ -172,7 +222,7 @@ frame1.pack(fill = X)
 l = Label(frame1, textvariable=pn1_sv, bg = "orange") #left
 l.pack(side = LEFT, padx = 0)
 m = Label(frame1, textvariable= pn2_sv, bg = "orange") #middle
-m.pack(side = LEFT, padx = 425)
+m.pack(side = LEFT, padx = 420)
 r = Label(frame1, textvariable=pn3_sv, bg = "orange")  #right
 r.pack(side = LEFT, padx =0) 
 
@@ -212,12 +262,43 @@ frame3.pack(fill = X)
 l = Label(frame3, textvariable=pn1_cb_sv, bg = "red", fg = "white")
 l.pack(side = LEFT, padx = 0)
 m = Label(frame3, textvariable=pn2_cb_sv, bg = "red", fg = "white")
-m.pack(side = LEFT, padx = 425)
+m.pack(side = LEFT, padx = 420)
 r = Label(frame3, textvariable=pn3_cb_sv, bg = "red", fg = "white")
 r.pack(side = LEFT, padx =0)
 
+########################## Adding the three message sections ##################
+msg1_sv = StringVar()
+msg1_sv.set('Message1')
+msg2_sv = StringVar()
+msg2_sv.set('Message2')
+msg3_sv = StringVar()
+msg3_sv.set('Message3')
 
+frame_msg1 = Frame(root, relief = RAISED, borderwidth = 1)
+frame_msg1.pack(fill = X, pady = 1)
+msg1 = Label(frame_msg1, text = "Message1")
+msg1.pack(side = LEFT)
+entry_msg1 = Entry(frame_msg1, textvariable = msg1_sv)
+entry_msg1.pack(ipadx= 30, ipady = 10, side=LEFT)
 
+frame_msg2 = Frame(root, relief = RAISED, borderwidth = 1)
+frame_msg2.pack(fill = X, pady = 1)
+msg2 = Label(frame_msg2, text = "Message2")
+msg2.pack(side = LEFT)
+entry_msg2 = Entry(frame_msg2, textvariable = msg2_sv)
+entry_msg2.pack(side = LEFT, ipadx= 30, ipady = 10)
+
+frame_msg3 = Frame(root, relief = RAISED, borderwidth = 1)
+frame_msg3.pack(fill = X, pady = 1)
+msg2 = Label(frame_msg3, text = "Message3")
+msg2.pack(side = LEFT)
+entry_msg3 = Entry(frame_msg3, textvariable = msg3_sv)
+entry_msg3.pack(side = LEFT, ipadx= 30, ipady = 10)
+#
+#msg3 = Label(frame_msg, text = "Message3")
+#msg3.pack()
+#entry_msg3 = Entry(frame_msg, textvariable = msg3_sv)
+#entry_msg3.pack(ipadx= 15)
 #clientSocket, address = s.accept()
 
 root.after(5000, socket_connection)
