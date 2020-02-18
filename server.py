@@ -18,8 +18,8 @@ full_msg = "0"
 Status = "0"
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #Creation of 
-s.bind(("121.0.0.20", 21))
-#s.bind((socket.gethostname(), 12345))
+#s.bind(("121.0.0.20", 21))
+s.bind((socket.gethostname(), 12345))
 s.listen(5)
 def socket_connection():
     global Status
@@ -30,7 +30,7 @@ def socket_connection():
     
     print("socket_connection 1")
     while True:
-        path = ("C:/Yazaki/CODEBAR/images/")
+        path = ("C:/Users/AMZ/Desktop/python_Gui_Socket_Prog/images/")
         if  Status == "0":
             print('Waiting...')
             clientSocket, address = s.accept()
@@ -82,7 +82,7 @@ def socket_connection():
                     #####  Changing Images  #######
                     if(full_msg[1:3] == "IM"):
                         if(full_msg[3:8] == "EMPTY"):
-                            path = path + full_msg[3:8]
+                            path = path + full_msg[3:]
                             path = path + '.jpg'
                             im_a = Image.open(path)
                             im_a = im_a.resize((620, 700))
@@ -92,7 +92,7 @@ def socket_connection():
                             pn1_cb_sv.set('Not Checked')
                             l.config(bg="red")
                         else:
-                            path = path + full_msg[3:6]
+                            path = path + full_msg[3:]
                             path = path + '.jpg'
                             im_a = Image.open(path)
                             im_a = im_a.resize((620, 700))
@@ -120,14 +120,28 @@ def socket_connection():
                         msg_string_var.set(full_msg)
                         f.write(full_msg)
                         f.close()
-    
+                    elif (full_msg[1:3] == "ST"):
+                        if(full_msg[3:] == "OK"):
+                            entry_msg1_a.config(bg="green")
+                            entry_msg1_b.config(bg="green")
+                            entry_msg1_c.config(bg="green")
+                        elif(full_msg[3:] == "NOK"):
+                            entry_msg1_a.config(bg="red")
+                            entry_msg1_b.config(bg="red")
+                            entry_msg1_c.config(bg="red")
+                        elif(full_msg[3:] == "EMPTY"):
+                            entry_msg1_a.config(bg="white")
+                            entry_msg1_b.config(bg="white")
+                            entry_msg1_c.config(bg="white")
+                        
+                            
                 
                 if (full_msg[0] == 'B'):
                     print(full_msg[1:3])
                     #####  Changing Images  #######
                     if(full_msg[1:3] == "IM"):
                         if(full_msg[3:8] == "EMPTY"):
-                            path = path + full_msg[3:8]
+                            path = path + full_msg[3:]
                             path = path + '.jpg'
                             im_a = Image.open(path)
                             im_a = im_a.resize((620, 700))
@@ -137,7 +151,7 @@ def socket_connection():
                             pn2_cb_sv.set('Not Checked')
                             m.config(bg="red")
                         else:
-                            path = path + full_msg[3:6]
+                            path = path + full_msg[3:]
                             path = path + '.jpg'
                             im_a = Image.open(path)
                             im_a = im_a.resize((620, 700))
@@ -163,6 +177,19 @@ def socket_connection():
                         msg_string_var.set(full_msg)
                         f.write(full_msg)
                         f.close()
+                    elif (full_msg[1:3] == "ST"):
+                        if(full_msg[3:] == "OK"):
+                            entry_msg2_a.config(bg="green")
+                            entry_msg2_b.config(bg="green")
+                            entry_msg2_c.config(bg="green")
+                        elif(full_msg[3:] == "NOK"):
+                            entry_msg2_a.config(bg="red")
+                            entry_msg2_b.config(bg="red")
+                            entry_msg2_c.config(bg="red")
+                        elif(full_msg[3:] == "EMPTY"):
+                            entry_msg2_a.config(bg="white")
+                            entry_msg2_b.config(bg="white")
+                            entry_msg2_c.config(bg="white")
                 
                 
                 if (full_msg[0] == 'C'):
@@ -170,7 +197,7 @@ def socket_connection():
                     #####  Changing Images  #######
                     if(full_msg[1:3] == "IM"):
                         if(full_msg[3:8] == "EMPTY"):
-                            path = path + full_msg[3:8]
+                            path = path + full_msg[3:]
                             path = path + '.jpg'
                             im_a = Image.open(path)
                             im_a = im_a.resize((620, 700))
@@ -180,7 +207,7 @@ def socket_connection():
                             pn3_cb_sv.set('Not Checked')
                             r.config(bg="red")
                         else:
-                            path = path + full_msg[3:6]
+                            path = path + full_msg[3:]
                             path = path + '.jpg'
                             im_a = Image.open(path)
                             im_a = im_a.resize((620, 700))
@@ -200,6 +227,19 @@ def socket_connection():
                             msg3_sv_b.set(full_msg[3:])
                         if(full_msg[2:3] == "3"):
                             msg3_sv_c.set(full_msg[3:])
+                    elif (full_msg[1:3] == "ST"):
+                        if(full_msg[3:] == "OK"):
+                            entry_msg3_a.config(bg="green")
+                            entry_msg3_b.config(bg="green")
+                            entry_msg3_c.config(bg="green")
+                        elif(full_msg[3:] == "NOK"):
+                            entry_msg3_a.config(bg="red")
+                            entry_msg3_b.config(bg="red")
+                            entry_msg3_c.config(bg="red")
+                        elif(full_msg[3:] == "EMPTY"):
+                            entry_msg3_a.config(bg="white")
+                            entry_msg3_b.config(bg="white")
+                            entry_msg3_c.config(bg="white")
                 
                 
                     elif (full_msg[1:3]) == "PR":
@@ -275,32 +315,32 @@ pn3_sv.set('PartNumber3')
 
 frame1 = Frame(root, relief = RAISED, borderwidth = 2)
 frame1.pack(fill = X)
-l = Entry(frame1, textvariable=pn1_sv, bg = "OliveDrab1") #left
-l.pack(side = LEFT, padx = 0, ipadx=230, ipady=10)
-m = Entry(frame1, textvariable= pn2_sv, bg = "OliveDrab1") #middle
-m.pack(side = LEFT, padx = 43, ipadx = 230, ipady=10)
-r = Entry(frame1, textvariable=pn3_sv, bg = "OliveDrab1")  #right
-r.pack(side = LEFT, padx =0, ipadx=230, ipady=10) 
+l = Entry(frame1, textvariable=pn1_sv, bg = "OliveDrab1", font = ("Calibri 16 bold")) #left
+l.pack(side = LEFT, padx = 0, ipadx=184, ipady=10)
+m = Entry(frame1, textvariable= pn2_sv, bg = "OliveDrab1", font = ("Calibri 16 bold")) #middle
+m.pack(side = LEFT, padx = 43, ipadx = 184, ipady=10)
+r = Entry(frame1, textvariable=pn3_sv, bg = "OliveDrab1", font = ("Calibri 16 bold"))  #right
+r.pack(side = LEFT, padx =0, ipadx=184, ipady=10) 
 
 frame2 = Frame(root, relief=RAISED, borderwidth = 2)
 frame2.pack(fill = X)
-epath = ("C:/Yazaki/CODEBAR/images/")
+epath = ("C:/Users/AMZ/Desktop/python_Gui_Socket_Prog/images/")
 epath = epath + ("EMPTY.jpg")
 
 im = Image.open(epath)
-im = im.resize((620, 700), Image.ANTIALIAS)
+im = im.resize((632, 700), Image.ANTIALIAS)
 img = ImageTk.PhotoImage(im)
 img_lbl = Label(frame2, image=img)
 img_lbl.pack(side=LEFT)
 
 im2 = Image.open(epath)
-im2 = im2.resize((620, 700), Image.ANTIALIAS)
+im2 = im2.resize((632, 700), Image.ANTIALIAS)
 img2 = ImageTk.PhotoImage(im2)
 img2_lbl = Label(frame2, image=img2)
 img2_lbl.pack(side=LEFT)
 
 im3 = Image.open(epath)
-im3 = im3.resize((620, 700), Image.ANTIALIAS)
+im3 = im3.resize((632, 700), Image.ANTIALIAS)
 img3 = ImageTk.PhotoImage(im3)
 img3_lbl = Label(frame2, image=img3)
 img3_lbl.pack(side=LEFT)
@@ -317,7 +357,7 @@ frame3.pack(fill = X)
 l = Entry(frame3, textvariable=pn1_cb_sv, bg = "red", fg = "white")
 l.pack(side = LEFT, padx = 0)
 m = Entry(frame3, textvariable=pn2_cb_sv, bg = "red", fg = "white")
-m.pack(side = LEFT, padx = 500)
+m.pack(side = LEFT, padx = 511)
 r = Entry(frame3, textvariable=pn3_cb_sv, bg = "red", fg = "white")
 r.pack(side = LEFT, padx =0)
 
@@ -348,16 +388,16 @@ frame_msg_a = Frame(root, relief = RAISED, borderwidth = 1)
 frame_msg_a.pack(fill = X, pady = 1)
 msg1_a = Label(frame_msg_a, text = "Message1", bg = "RoyalBlue1")
 msg1_a.pack(side = LEFT, ipady = 10)
-entry_msg1_a = Entry(frame_msg_a, textvariable = msg1_sv_a)
-entry_msg1_a.pack(ipadx= 200, ipady = 10, side=LEFT)
+entry_msg1_a = Entry(frame_msg_a, textvariable = msg1_sv_a,font = ("Calibri 13"))
+entry_msg1_a.pack(ipadx= 175, ipady = 10, side=LEFT)
 msg2_a = Label(frame_msg_a, text = "Message1", bg = "RoyalBlue1")
 msg2_a.pack(side = LEFT, padx = (43, 0), ipady = 10)
-entry_msg2_a = Entry(frame_msg_a, textvariable = msg2_sv_a)
-entry_msg2_a.pack(ipadx=200, ipady=10, side = LEFT)
+entry_msg2_a = Entry(frame_msg_a, textvariable = msg2_sv_a,font = ("Calibri 13"))
+entry_msg2_a.pack(ipadx=175, ipady=10, side = LEFT)
 msg3_a = Label(frame_msg_a, text = "Message1", bg = "RoyalBlue1")
 msg3_a.pack(side = LEFT, padx = (43, 0), ipady = 10)
-entry_msg3_a = Entry(frame_msg_a, textvariable = msg3_sv_a)
-entry_msg3_a.pack(ipadx=200, ipady=10, side = LEFT)
+entry_msg3_a = Entry(frame_msg_a, textvariable = msg3_sv_a,font = ("Calibri 13"))
+entry_msg3_a.pack(ipadx=175, ipady=10, side = LEFT)
 
 
 
@@ -365,31 +405,31 @@ frame_msg_b = Frame(root, relief = RAISED, borderwidth = 1)
 frame_msg_b.pack(fill = X, pady = 1)
 msg1_b = Label(frame_msg_b, text = "Message2", bg = "RoyalBlue1")
 msg1_b.pack(side = LEFT, ipady = 10)
-entry_msg1_b = Entry(frame_msg_b, textvariable = msg1_sv_b)
-entry_msg1_b.pack(side = LEFT, ipadx= 200, ipady = 10)
+entry_msg1_b = Entry(frame_msg_b, textvariable = msg1_sv_b, font = ("Calibri 13"))
+entry_msg1_b.pack(side = LEFT, ipadx= 175, ipady = 10)
 msg2_b = Label(frame_msg_b, text = "Message2", bg = "RoyalBlue1")
 msg2_b.pack(side = LEFT, padx = (43, 0), ipady = 10)
-entry_msg2_b = Entry(frame_msg_b, textvariable = msg2_sv_b)
-entry_msg2_b.pack(side = LEFT, ipadx= 200, ipady = 10)
+entry_msg2_b = Entry(frame_msg_b, textvariable = msg2_sv_b, font = ("Calibri 13"))
+entry_msg2_b.pack(side = LEFT, ipadx= 175, ipady = 10)
 msg3_b = Label(frame_msg_b, text = "Message2", bg = "RoyalBlue1")
 msg3_b.pack(side = LEFT, padx=(43, 0), ipady = 10)
-entry_msg3_b = Entry(frame_msg_b, textvariable = msg3_sv_b)
-entry_msg3_b.pack(side = LEFT, ipadx= 200, ipady = 10)
+entry_msg3_b = Entry(frame_msg_b, textvariable = msg3_sv_b, font = ("Calibri 13"))
+entry_msg3_b.pack(side = LEFT, ipadx= 175, ipady = 10)
 
 frame_msg_c = Frame(root, relief = RAISED, borderwidth = 1)
 frame_msg_c.pack(fill = X, pady = 1)
 msg1_c = Label(frame_msg_c, text = "Message3", bg = "RoyalBlue1")
 msg1_c.pack(side = LEFT, ipady = 10)
-entry_msg1_c = Entry(frame_msg_c, textvariable = msg1_sv_c)
-entry_msg1_c.pack(side = LEFT, ipadx= 200, ipady = 10)
+entry_msg1_c = Entry(frame_msg_c, textvariable = msg1_sv_c, font = ("Calibri 13"))
+entry_msg1_c.pack(side = LEFT, ipadx= 175, ipady = 10)
 msg2_c = Label(frame_msg_c, text = "Message3", bg = "RoyalBlue1")
 msg2_c.pack(side = LEFT, padx = (43, 0), ipady = 10)
-entry_msg2_c = Entry(frame_msg_c, textvariable = msg2_sv_c)
-entry_msg2_c.pack(side = LEFT, ipadx= 200, ipady = 10)
+entry_msg2_c = Entry(frame_msg_c, textvariable = msg2_sv_c, font = ("Calibri 13"))
+entry_msg2_c.pack(side = LEFT, ipadx= 175, ipady = 10)
 msg3_c = Label(frame_msg_c, text = "Message3", bg = "RoyalBlue1")
 msg3_c.pack(side = LEFT, padx = (43, 0), ipady = 10)
-entry_msg3_c = Entry(frame_msg_c, textvariable = msg3_sv_c)
-entry_msg3_c.pack(side = LEFT, ipadx= 200, ipady = 10)
+entry_msg3_c = Entry(frame_msg_c, textvariable = msg3_sv_c, font = ("Calibri 13"))
+entry_msg3_c.pack(side = LEFT, ipadx= 175, ipady = 10)
 
 
 x = Thread(target=socket_connection)
